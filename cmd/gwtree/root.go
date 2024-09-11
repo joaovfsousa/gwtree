@@ -8,6 +8,7 @@ import (
 
 	logger "github.com/joaovfsousa/gwtree/internal"
 	git_cmd_branch "github.com/joaovfsousa/gwtree/pkg/git_commands/branch"
+	"github.com/joaovfsousa/gwtree/pkg/os_commands"
 )
 
 var l = logger.GetLogger()
@@ -34,9 +35,22 @@ var addCmd = &cobra.Command{
 		return nil
 	},
 	Run: func(cmd *cobra.Command, args []string) {
-		branch_exists := git_cmd_branch.Exists(args[0])
+		branches, err := git_cmd_branch.List()
+		if err != nil {
+			panic(err)
+		}
 
-		l.Info(fmt.Sprintf("Branch exists: %t", branch_exists))
+		branch_names := []string{}
+		for _, b := range branches {
+			branch_names = append(branch_names, b.String())
+		}
+
+		selectedBranch, err := os_commands.FzfSelect(branch_names)
+		if err != nil {
+			panic(err)
+		}
+
+		l.Info(fmt.Sprintf("Chosen: %v", selectedBranch))
 	},
 }
 
