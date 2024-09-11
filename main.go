@@ -1,18 +1,15 @@
 package main
 
 import (
-	"fmt"
-	"log/slog"
+	"os"
 
-	"github.com/joaovfsousa/gwtree/pkg/git_commands"
+	cmd "github.com/joaovfsousa/gwtree/cmd/gwtree"
 )
 
 func main() {
-	logger := slog.New(slog.Default().Handler())
-
-	worktrees, _ := git_commands.ListWorktrees(logger)
-
-	for _, worktree := range worktrees {
-		logger.Info(fmt.Sprintf("Path: %v  Branch: %v", worktree.Path, worktree.BranchName))
+	err := cmd.RootExecute()
+	if err != nil {
+		panic(err)
 	}
+	os.Exit(0)
 }
