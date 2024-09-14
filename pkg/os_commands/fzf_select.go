@@ -2,6 +2,7 @@ package os_commands
 
 import (
 	"bytes"
+	"errors"
 	"fmt"
 	"os/exec"
 	"strings"
@@ -20,6 +21,10 @@ func FzfSelect(options []string) (string, error) {
 	}
 
 	lines := strings.Split(string(output), "\n")
+
+	if len(lines) < 1 || lines[0] == "" {
+		return "", errors.New("No options was selected")
+	}
 
 	return lines[0], nil
 }

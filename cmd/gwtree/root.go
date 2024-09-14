@@ -7,11 +7,8 @@ import (
 	"github.com/spf13/cobra"
 
 	logger "github.com/joaovfsousa/gwtree/internal"
-	git_cmd_branch "github.com/joaovfsousa/gwtree/pkg/git_commands/branch"
-	"github.com/joaovfsousa/gwtree/pkg/os_commands"
+	"github.com/joaovfsousa/gwtree/pkg/usecases"
 )
-
-var l = logger.GetLogger()
 
 var rootCmd = &cobra.Command{
 	Use:   "gwtree",
@@ -35,22 +32,27 @@ var addCmd = &cobra.Command{
 		return nil
 	},
 	Run: func(cmd *cobra.Command, args []string) {
-		branches, err := git_cmd_branch.List()
+		var err error
+
+		newBranchName := args[0]
+
+		baseBranchName := ""
+		if len(args) > 1 {
+			baseBranchName = args[1]
+		} else {
+			baseBranchName, err = usecases.PickBranch()
+			if err != nil {
+				panic(err)
+			}
+		}
+
+		err = usecases.CreateWorktree(&usecases.CreateWorktreeOptions{
+			NewBranchName:  newBranchName,
+			BaseBranchName: baseBranchName,
+		})
 		if err != nil {
-			panic(err)
+			logger.GetLogger().Error(fmt.Sprintf("Failed to create worktree: %v", err.Error()))
 		}
-
-		branch_names := []string{}
-		for _, b := range branches {
-			branch_names = append(branch_names, b.String())
-		}
-
-		selectedBranch, err := os_commands.FzfSelect(branch_names)
-		if err != nil {
-			panic(err)
-		}
-
-		l.Info(fmt.Sprintf("Chosen: %v", selectedBranch))
 	},
 }
 
