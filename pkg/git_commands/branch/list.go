@@ -1,8 +1,8 @@
 package git_cmd_branch
 
 import (
+	"github.com/joaovfsousa/gwtree/internal/os_commands"
 	"github.com/joaovfsousa/gwtree/pkg/domain"
-	"github.com/joaovfsousa/gwtree/pkg/os_commands"
 )
 
 func List() ([]*domain.Branch, error) {

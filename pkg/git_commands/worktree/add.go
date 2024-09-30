@@ -1,8 +1,8 @@
 package git_cmd_worktree
 
 import (
+	"github.com/joaovfsousa/gwtree/internal/os_commands"
 	git_cmd_branch "github.com/joaovfsousa/gwtree/pkg/git_commands/branch"
-	"github.com/joaovfsousa/gwtree/pkg/os_commands"
 )
 
 type WorktreeAddOptions struct {

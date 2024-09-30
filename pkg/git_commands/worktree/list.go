@@ -6,8 +6,8 @@ import (
 	"regexp"
 	"strings"
 
+	"github.com/joaovfsousa/gwtree/internal/os_commands"
 	"github.com/joaovfsousa/gwtree/pkg/domain"
-	"github.com/joaovfsousa/gwtree/pkg/os_commands"
 )
 
 func ListWorktrees(logger *slog.Logger) ([]*domain.Worktree, error) {
