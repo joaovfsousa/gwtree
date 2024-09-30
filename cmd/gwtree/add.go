@@ -6,7 +6,7 @@ import (
 
 	"github.com/spf13/cobra"
 
-	logger "github.com/joaovfsousa/gwtree/internal"
+	"github.com/joaovfsousa/gwtree/internal/logger"
 	"github.com/joaovfsousa/gwtree/pkg/usecases"
 )
 

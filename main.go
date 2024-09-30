@@ -4,7 +4,7 @@ import (
 	"os"
 
 	cmd "github.com/joaovfsousa/gwtree/cmd/gwtree"
-	logger "github.com/joaovfsousa/gwtree/internal"
+	"github.com/joaovfsousa/gwtree/internal/logger"
 )
 
 func main() {
