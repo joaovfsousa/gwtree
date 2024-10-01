@@ -15,5 +15,7 @@ func RootExecute() error {
 	rootCmd.AddCommand(switchCmd)
 	rootCmd.AddCommand(deleteCmd)
 	rootCmd.AddCommand(pruneCmd)
+
+	pruneCmd.PersistentFlags().Bool(dryRunFlagName, false, "Log worktrees that will be deleted instead of actually deleting")
 	return rootCmd.Execute()
 }
