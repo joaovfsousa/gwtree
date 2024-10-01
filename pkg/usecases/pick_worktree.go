@@ -4,14 +4,13 @@ import (
 	"fmt"
 	"regexp"
 
-	"github.com/joaovfsousa/gwtree/internal/logger"
 	"github.com/joaovfsousa/gwtree/internal/os_commands"
 	"github.com/joaovfsousa/gwtree/pkg/domain"
 	git_cmd_worktree "github.com/joaovfsousa/gwtree/pkg/git_commands/worktree"
 )
 
 func PickWorktree(branchName *string) (*domain.Worktree, error) {
-	worktrees, err := git_cmd_worktree.ListWorktrees(logger.GetLogger())
+	worktrees, err := git_cmd_worktree.ListWorktrees()
 	if err != nil {
 		return nil, err
 	}

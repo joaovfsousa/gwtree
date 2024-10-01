@@ -1,0 +1,48 @@
+package cmd
+
+import (
+	"fmt"
+	"time"
+
+	"github.com/spf13/cobra"
+
+	git_cmd_worktree "github.com/joaovfsousa/gwtree/pkg/git_commands/worktree"
+	"github.com/joaovfsousa/gwtree/pkg/usecases"
+)
+
+var pruneCmd = &cobra.Command{
+	Use:     "prune",
+	Aliases: []string{"p"},
+	Short:   "Prunes old worktrees",
+	Long:    "Prunes old worktrees. Shell integration has to be setup in order to make it work",
+	Run: func(cmd *cobra.Command, _ []string) {
+		FIFTEEN_DAYS_IN_SECONDS := int64(((24 * time.Hour) * 15).Seconds())
+
+		wts, err := git_cmd_worktree.ListWorktrees()
+		if err != nil {
+			panic(err)
+		}
+
+		for _, wt := range wts {
+			if wt.BranchName == "master" || wt.BranchName == "main" {
+				continue
+			}
+
+			unixTime, err := git_cmd_worktree.GetLastWorktreeCommitDate(wt)
+			if err != nil {
+				panic(err)
+			}
+
+			t := time.Unix(unixTime, 0)
+
+			if !(time.Now().Unix()-unixTime < FIFTEEN_DAYS_IN_SECONDS) {
+				fmt.Printf("Old as hell => %v => [%v] %v\n", t, wt.BranchName, wt.Path)
+				if err := usecases.DeleteWorktree(wt); err != nil {
+					fmt.Printf("Failed to delete worktree [%v] %v", wt.BranchName, wt.Path)
+				} else {
+					fmt.Printf("Successfully deleted worktree [%v] %v", wt.BranchName, wt.Path)
+				}
+			}
+		}
+	},
+}

@@ -2,13 +2,10 @@ package cmd
 
 import (
 	"errors"
-	"os"
 
 	"github.com/spf13/cobra"
 
 	"github.com/joaovfsousa/gwtree/pkg/domain"
-	git_cmd_branch "github.com/joaovfsousa/gwtree/pkg/git_commands/branch"
-	git_cmd_worktree "github.com/joaovfsousa/gwtree/pkg/git_commands/worktree"
 	"github.com/joaovfsousa/gwtree/pkg/usecases"
 )
 
@@ -44,15 +41,7 @@ var deleteCmd = &cobra.Command{
 			panic(err)
 		}
 
-		if err := os.RemoveAll(wt.Path); err != nil {
-			panic(err)
-		}
-
-		if err := git_cmd_worktree.PruneWorktrees(); err != nil {
-			panic(err)
-		}
-
-		if err := git_cmd_branch.DeleteBranch(&domain.Branch{Name: wt.BranchName}); err != nil {
+		if err := usecases.DeleteWorktree(wt); err != nil {
 			panic(err)
 		}
 	},

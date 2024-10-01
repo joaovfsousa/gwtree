@@ -14,5 +14,6 @@ func RootExecute() error {
 	rootCmd.AddCommand(addCmd)
 	rootCmd.AddCommand(switchCmd)
 	rootCmd.AddCommand(deleteCmd)
+	rootCmd.AddCommand(pruneCmd)
 	return rootCmd.Execute()
 }
