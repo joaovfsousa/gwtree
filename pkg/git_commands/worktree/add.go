@@ -11,8 +11,8 @@ type WorktreeAddOptions struct {
 	BaseBranchName string
 }
 
-func Add(opts *WorktreeAddOptions) error {
-	branchExists := git_cmd_branch.Exists(opts.NewBranchName)
+func AddWorktree(opts *WorktreeAddOptions) error {
+	branchExists := git_cmd_branch.BranchExists(opts.NewBranchName)
 
 	if branchExists {
 	}

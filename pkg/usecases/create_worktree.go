@@ -26,7 +26,7 @@ func getTreeNameFromBranchName(branchName string) string {
 func CreateWorktree(opts *CreateWorktreeOptions) error {
 	treeName := getTreeNameFromBranchName(opts.NewBranchName)
 
-	err := git_cmd_worktree.Add(&git_cmd_worktree.WorktreeAddOptions{
+	err := git_cmd_worktree.AddWorktree(&git_cmd_worktree.WorktreeAddOptions{
 		NewBranchName:  opts.NewBranchName,
 		BaseBranchName: opts.BaseBranchName,
 		TreeName:       treeName,

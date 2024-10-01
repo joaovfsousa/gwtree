@@ -5,7 +5,7 @@ import (
 	"github.com/joaovfsousa/gwtree/pkg/domain"
 )
 
-func List() ([]*domain.Branch, error) {
+func ListBranches() ([]*domain.Branch, error) {
 	lines, err := os_commands.ExecOsCmd("git", "branch", "--format=%(refname:short)")
 	if err != nil {
 		return nil, err

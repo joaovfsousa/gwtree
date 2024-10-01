@@ -6,7 +6,7 @@ import (
 )
 
 func PickBranch() (string, error) {
-	branches, err := git_cmd_branch.List()
+	branches, err := git_cmd_branch.ListBranches()
 	if err != nil {
 		return "", nil
 	}
