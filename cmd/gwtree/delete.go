@@ -14,7 +14,7 @@ import (
 
 var deleteCmd = &cobra.Command{
 	Use:     "delete [<branchName>]",
-	Aliases: []string{"s", "d"},
+	Aliases: []string{"r", "d"},
 	Short:   "Deletes a worktree",
 	Long:    "To delete a worktree interactive, don't provide a <branchName>. Shell integration has to be setup in order to make it work",
 	Args: func(cmd *cobra.Command, args []string) error {
