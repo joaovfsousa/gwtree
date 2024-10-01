@@ -10,7 +10,7 @@ import (
 	"github.com/joaovfsousa/gwtree/pkg/usecases"
 )
 
-var (
+const (
 	dryRunFlagName    = "dry-run"
 	thresholdFlagName = "threshold"
 )
