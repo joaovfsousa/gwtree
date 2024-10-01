@@ -15,6 +15,7 @@ func AddWorktree(opts *WorktreeAddOptions) error {
 	branchExists := git_cmd_branch.BranchExists(opts.NewBranchName)
 
 	if branchExists {
+		// TODO
 	}
 	if opts.BaseBranchName == "" {
 		_, err := os_commands.ExecOsCmd("git", "worktree", "add", opts.TreeName, opts.NewBranchName)

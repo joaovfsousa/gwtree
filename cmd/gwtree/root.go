@@ -13,5 +13,6 @@ var rootCmd = &cobra.Command{
 func RootExecute() error {
 	rootCmd.AddCommand(addCmd)
 	rootCmd.AddCommand(switchCmd)
+	rootCmd.AddCommand(deleteCmd)
 	return rootCmd.Execute()
 }
