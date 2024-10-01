@@ -5,12 +5,11 @@ import (
 	"regexp"
 	"strings"
 
-	"github.com/joaovfsousa/gwtree/internal/logger"
 	"github.com/joaovfsousa/gwtree/internal/os_commands"
 	"github.com/joaovfsousa/gwtree/pkg/domain"
 )
 
-func ListWorktrees() ([]*domain.Worktree, error) {
+func (wc *WorktreeCommands) ListWorktrees() ([]*domain.Worktree, error) {
 	lines, err := os_commands.ExecOsCmd("git", "worktree", "list")
 	if err != nil {
 		return nil, err
@@ -34,7 +33,7 @@ func ListWorktrees() ([]*domain.Worktree, error) {
 		matches := re.FindStringSubmatch(line)
 
 		if len(matches) < 3 {
-			logger.GetLogger().Debug(fmt.Sprintf("Failed to parse: '%v'", line))
+			wc.logger.Debug(fmt.Sprintf("Failed to parse: '%v'", line))
 
 			continue
 		}

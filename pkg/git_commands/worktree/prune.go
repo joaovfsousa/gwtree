@@ -4,7 +4,7 @@ import (
 	"github.com/joaovfsousa/gwtree/internal/os_commands"
 )
 
-func PruneWorktrees() error {
+func (wc *WorktreeCommands) PruneWorktrees() error {
 	_, err := os_commands.ExecOsCmd("git", "worktree", "prune")
 	if err != nil {
 		return err

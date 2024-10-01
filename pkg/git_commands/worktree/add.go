@@ -4,7 +4,6 @@ import (
 	"fmt"
 
 	"github.com/joaovfsousa/gwtree/internal/os_commands"
-	git_cmd_branch "github.com/joaovfsousa/gwtree/pkg/git_commands/branch"
 )
 
 type WorktreeAddOptions struct {
@@ -13,8 +12,8 @@ type WorktreeAddOptions struct {
 	BaseBranchName string
 }
 
-func AddWorktree(opts *WorktreeAddOptions) error {
-	branchExists := git_cmd_branch.BranchExists(opts.NewBranchName)
+func (wc *WorktreeCommands) AddWorktree(opts *WorktreeAddOptions) error {
+	branchExists := wc.bc.BranchExists(opts.NewBranchName)
 
 	if branchExists {
 		_, err := os_commands.ExecOsCmd("git", "worktree", "add", opts.TreeName, opts.NewBranchName)
@@ -25,7 +24,7 @@ func AddWorktree(opts *WorktreeAddOptions) error {
 		return nil
 	}
 
-	baseBranchExists := git_cmd_branch.BranchExists(opts.BaseBranchName)
+	baseBranchExists := wc.bc.BranchExists(opts.BaseBranchName)
 
 	if !baseBranchExists {
 		return fmt.Errorf("Base Branch %v doesn't exists", opts.BaseBranchName)

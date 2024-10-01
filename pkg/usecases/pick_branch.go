@@ -2,11 +2,11 @@ package usecases
 
 import (
 	"github.com/joaovfsousa/gwtree/internal/os_commands"
-	git_cmd_branch "github.com/joaovfsousa/gwtree/pkg/git_commands/branch"
+	"github.com/joaovfsousa/gwtree/pkg/git_commands"
 )
 
-func PickBranch() (string, error) {
-	branches, err := git_cmd_branch.ListBranches()
+func PickBranch(gc *git_commands.GitCommander) (string, error) {
+	branches, err := gc.Branch.ListBranches()
 	if err != nil {
 		return "", nil
 	}

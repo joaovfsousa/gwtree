@@ -8,7 +8,7 @@ import (
 	"github.com/joaovfsousa/gwtree/pkg/domain"
 )
 
-func GetLastWorktreeCommitDate(wt *domain.Worktree) (int64, error) {
+func (wc *WorktreeCommands) GetLastWorktreeCommitDate(wt *domain.Worktree) (int64, error) {
 	lines, err := os_commands.ExecOsCmd("git", "-C", wt.Path, "log", "-1", "--format=%ct")
 	if err != nil {
 		return 0, err

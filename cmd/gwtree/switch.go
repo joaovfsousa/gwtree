@@ -33,9 +33,9 @@ var switchCmd = &cobra.Command{
 		if len(args) == 1 {
 			branchName := args[0]
 
-			wt, err = usecases.PickWorktree(&branchName)
+			wt, err = usecases.PickWorktree(gc, &branchName)
 		} else {
-			wt, err = usecases.PickWorktree(nil)
+			wt, err = usecases.PickWorktree(gc, nil)
 		}
 
 		if err != nil {

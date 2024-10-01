@@ -6,7 +6,6 @@ import (
 
 	"github.com/spf13/cobra"
 
-	"github.com/joaovfsousa/gwtree/internal/logger"
 	"github.com/joaovfsousa/gwtree/pkg/usecases"
 )
 
@@ -35,18 +34,18 @@ var addCmd = &cobra.Command{
 		if len(args) > 1 {
 			baseBranchName = args[1]
 		} else {
-			baseBranchName, err = usecases.PickBranch()
+			baseBranchName, err = usecases.PickBranch(gc)
 			if err != nil {
 				panic(err)
 			}
 		}
 
-		err = usecases.CreateWorktree(&usecases.CreateWorktreeOptions{
+		err = usecases.CreateWorktree(gc, &usecases.CreateWorktreeOptions{
 			NewBranchName:  newBranchName,
 			BaseBranchName: baseBranchName,
 		})
 		if err != nil {
-			logger.GetLogger().Error(fmt.Sprintf("Failed to create worktree: %v", err.Error()))
+			l.Error(fmt.Sprintf("Failed to create worktree: %v", err.Error()))
 		}
 	},
 }
