@@ -5,8 +5,6 @@ import (
 	"time"
 
 	"github.com/spf13/cobra"
-
-	"github.com/joaovfsousa/gwtree/pkg/usecases"
 )
 
 const (
@@ -53,7 +51,7 @@ var pruneCmd = &cobra.Command{
 				if dryRun {
 					fmt.Printf("[%v] %v => Last commit on %v\n", wt.BranchName, wt.Path, t)
 				} else {
-					if err := usecases.DeleteWorktree(gc, wt); err != nil {
+					if err := uc.DeleteWorktree(wt); err != nil {
 						fmt.Printf("Failed to delete worktree [%v] %v", wt.BranchName, wt.Path)
 					} else {
 						fmt.Printf("Successfully deleted worktree [%v] %v", wt.BranchName, wt.Path)

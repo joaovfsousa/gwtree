@@ -6,11 +6,10 @@ import (
 
 	"github.com/joaovfsousa/gwtree/internal/os_commands"
 	"github.com/joaovfsousa/gwtree/pkg/domain"
-	"github.com/joaovfsousa/gwtree/pkg/git_commands"
 )
 
-func PickWorktree(gc *git_commands.GitCommander, branchName *string) (*domain.Worktree, error) {
-	worktrees, err := gc.Worktree.ListWorktrees()
+func (uc *UseCases) PickWorktree(branchName *string) (*domain.Worktree, error) {
+	worktrees, err := uc.gc.Worktree.ListWorktrees()
 	if err != nil {
 		return nil, err
 	}

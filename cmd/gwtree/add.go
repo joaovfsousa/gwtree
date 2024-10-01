@@ -34,13 +34,13 @@ var addCmd = &cobra.Command{
 		if len(args) > 1 {
 			baseBranchName = args[1]
 		} else {
-			baseBranchName, err = usecases.PickBranch(gc)
+			baseBranchName, err = uc.PickBranch()
 			if err != nil {
 				panic(err)
 			}
 		}
 
-		err = usecases.CreateWorktree(gc, &usecases.CreateWorktreeOptions{
+		err = uc.CreateWorktree(&usecases.CreateWorktreeOptions{
 			NewBranchName:  newBranchName,
 			BaseBranchName: baseBranchName,
 		})

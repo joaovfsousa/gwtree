@@ -7,7 +7,6 @@ import (
 
 	"github.com/joaovfsousa/gwtree/internal/file_ops"
 	"github.com/joaovfsousa/gwtree/pkg/domain"
-	"github.com/joaovfsousa/gwtree/pkg/usecases"
 )
 
 var switchCmd = &cobra.Command{
@@ -33,9 +32,9 @@ var switchCmd = &cobra.Command{
 		if len(args) == 1 {
 			branchName := args[0]
 
-			wt, err = usecases.PickWorktree(gc, &branchName)
+			wt, err = uc.PickWorktree(&branchName)
 		} else {
-			wt, err = usecases.PickWorktree(gc, nil)
+			wt, err = uc.PickWorktree(nil)
 		}
 
 		if err != nil {

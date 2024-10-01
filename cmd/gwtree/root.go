@@ -5,6 +5,7 @@ import (
 
 	"github.com/joaovfsousa/gwtree/internal/logger"
 	"github.com/joaovfsousa/gwtree/pkg/git_commands"
+	"github.com/joaovfsousa/gwtree/pkg/usecases"
 )
 
 var rootCmd = &cobra.Command{
@@ -16,6 +17,7 @@ var rootCmd = &cobra.Command{
 var (
 	l  = logger.GetLogger()
 	gc = git_commands.CreateGitCommander(l)
+	uc = usecases.CreateUseCases(l, gc)
 )
 
 func RootExecute() error {

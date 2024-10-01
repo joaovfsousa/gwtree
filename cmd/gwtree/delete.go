@@ -6,7 +6,6 @@ import (
 	"github.com/spf13/cobra"
 
 	"github.com/joaovfsousa/gwtree/pkg/domain"
-	"github.com/joaovfsousa/gwtree/pkg/usecases"
 )
 
 var deleteCmd = &cobra.Command{
@@ -32,16 +31,16 @@ var deleteCmd = &cobra.Command{
 		if len(args) == 1 {
 			branchName := args[0]
 
-			wt, err = usecases.PickWorktree(gc, &branchName)
+			wt, err = uc.PickWorktree(&branchName)
 		} else {
-			wt, err = usecases.PickWorktree(gc, nil)
+			wt, err = uc.PickWorktree(nil)
 		}
 
 		if err != nil {
 			panic(err)
 		}
 
-		if err := usecases.DeleteWorktree(gc, wt); err != nil {
+		if err := uc.DeleteWorktree(wt); err != nil {
 			panic(err)
 		}
 	},
