@@ -10,7 +10,10 @@ import (
 	"github.com/joaovfsousa/gwtree/pkg/usecases"
 )
 
-var dryRunFlagName = "dry-run"
+var (
+	dryRunFlagName    = "dry-run"
+	thresholdFlagName = "threshold"
+)
 
 var pruneCmd = &cobra.Command{
 	Use:     "prune",
@@ -18,12 +21,17 @@ var pruneCmd = &cobra.Command{
 	Short:   "Prunes old worktrees",
 	Long:    "Prunes old worktrees. Shell integration has to be setup in order to make it work",
 	Run: func(cmd *cobra.Command, _ []string) {
-		FIFTEEN_DAYS_IN_SECONDS := int64(((24 * time.Hour) * 15).Seconds())
-
 		dryRun, err := cmd.Flags().GetBool(dryRunFlagName)
 		if err != nil {
 			dryRun = false
 		}
+
+		thresholdInDays, err := cmd.Flags().GetUint8(thresholdFlagName)
+		if err != nil {
+			thresholdInDays = 15
+		}
+
+		threshold := int64(((24 * time.Hour) * time.Duration(thresholdInDays)).Seconds())
 
 		wts, err := git_cmd_worktree.ListWorktrees()
 		if err != nil {
@@ -42,7 +50,7 @@ var pruneCmd = &cobra.Command{
 
 			t := time.Unix(unixTime, 0)
 
-			if !(time.Now().Unix()-unixTime < FIFTEEN_DAYS_IN_SECONDS) {
+			if !(time.Now().Unix()-unixTime < threshold) {
 				if dryRun {
 					fmt.Printf("[%v] %v => Last commit on %v\n", wt.BranchName, wt.Path, t)
 				} else {

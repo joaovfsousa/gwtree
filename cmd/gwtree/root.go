@@ -16,6 +16,8 @@ func RootExecute() error {
 	rootCmd.AddCommand(deleteCmd)
 	rootCmd.AddCommand(pruneCmd)
 
-	pruneCmd.PersistentFlags().Bool(dryRunFlagName, false, "Log worktrees that will be deleted instead of actually deleting")
+	pruneCmd.PersistentFlags().Bool(dryRunFlagName, false, "Log worktrees that will be deleted instead of actually deleting. Default = false")
+	pruneCmd.PersistentFlags().Uint8(thresholdFlagName, 15, "Threshold in days. Default = 15")
+
 	return rootCmd.Execute()
 }
