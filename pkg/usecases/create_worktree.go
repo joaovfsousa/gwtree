@@ -2,7 +2,6 @@ package usecases
 
 import (
 	"regexp"
-	"strings"
 
 	git_cmd_worktree "github.com/joaovfsousa/gwtree/pkg/git_commands/worktree"
 )
@@ -13,14 +12,7 @@ type CreateWorktreeOptions struct {
 }
 
 func getTreeNameFromBranchName(branchName string) string {
-	parts := strings.Split(branchName, "/")
-
-	partsLastIndex := len(parts) - 1
-	partsLastValue := parts[partsLastIndex]
-
-	parts[partsLastIndex] = regexp.MustCompile("[^0-9]").ReplaceAllString(partsLastValue, "")
-
-	return strings.Join(parts, "")
+	return regexp.MustCompile("/").ReplaceAllString(branchName, "")
 }
 
 func CreateWorktree(opts *CreateWorktreeOptions) error {
