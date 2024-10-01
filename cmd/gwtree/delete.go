@@ -2,6 +2,8 @@ package cmd
 
 import (
 	"errors"
+	"fmt"
+	"os"
 
 	"github.com/spf13/cobra"
 
@@ -37,11 +39,13 @@ var deleteCmd = &cobra.Command{
 		}
 
 		if err != nil {
-			panic(err)
+			fmt.Printf("Failed to pick a worktree: %v\n", err.Error())
+			os.Exit(1)
 		}
 
 		if err := uc.DeleteWorktree(wt); err != nil {
-			panic(err)
+			fmt.Printf("Failed to delete %v worktree: %v\n", wt.BranchName, err.Error())
+			os.Exit(1)
 		}
 	},
 }

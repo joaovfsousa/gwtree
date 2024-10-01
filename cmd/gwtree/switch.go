@@ -2,6 +2,8 @@ package cmd
 
 import (
 	"errors"
+	"fmt"
+	"os"
 
 	"github.com/spf13/cobra"
 
@@ -38,11 +40,13 @@ var switchCmd = &cobra.Command{
 		}
 
 		if err != nil {
-			panic(err)
+			fmt.Printf("Failed to pick a worktree: %v\n", err.Error())
+			os.Exit(1)
 		}
 
 		if err := file_ops.RecordNewDir(wt.Path); err != nil {
-			panic(err)
+			fmt.Printf("Failed to set new dir: %v\n", err.Error())
+			os.Exit(1)
 		}
 	},
 }

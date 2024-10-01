@@ -3,6 +3,7 @@ package cmd
 import (
 	"errors"
 	"fmt"
+	"os"
 
 	"github.com/spf13/cobra"
 
@@ -36,7 +37,8 @@ var addCmd = &cobra.Command{
 		} else {
 			baseBranchName, err = uc.PickBranch()
 			if err != nil {
-				panic(err)
+				fmt.Printf("Failed to pick a base branch: %v\n", err.Error())
+				os.Exit(1)
 			}
 		}
 
@@ -45,7 +47,8 @@ var addCmd = &cobra.Command{
 			BaseBranchName: baseBranchName,
 		})
 		if err != nil {
-			l.Error(fmt.Sprintf("Failed to create worktree: %v", err.Error()))
+			fmt.Printf("Failed to create worktree: %v\n", err.Error())
+			os.Exit(1)
 		}
 	},
 }

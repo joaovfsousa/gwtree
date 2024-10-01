@@ -2,6 +2,7 @@ package cmd
 
 import (
 	"fmt"
+	"os"
 	"time"
 
 	"github.com/spf13/cobra"
@@ -30,9 +31,12 @@ var pruneCmd = &cobra.Command{
 
 		threshold := int64(((24 * time.Hour) * time.Duration(thresholdInDays)).Seconds())
 
+		fmt.Printf("Threshold set to %v day(s)\n", thresholdInDays)
+
 		wts, err := gc.Worktree.ListWorktrees()
 		if err != nil {
-			panic(err)
+			fmt.Printf("Failed to list worktrees: %v\n", err.Error())
+			os.Exit(1)
 		}
 
 		for _, wt := range wts {
@@ -42,7 +46,8 @@ var pruneCmd = &cobra.Command{
 
 			unixTime, err := gc.Worktree.GetLastWorktreeCommitDate(wt)
 			if err != nil {
-				panic(err)
+				fmt.Printf("Failed to get %v last commit date: %v\n", wt.BranchName, err.Error())
+				continue
 			}
 
 			t := time.Unix(unixTime, 0)
@@ -52,9 +57,9 @@ var pruneCmd = &cobra.Command{
 					fmt.Printf("[%v] %v => Last commit on %v\n", wt.BranchName, wt.Path, t)
 				} else {
 					if err := uc.DeleteWorktree(wt); err != nil {
-						fmt.Printf("Failed to delete worktree [%v] %v", wt.BranchName, wt.Path)
+						fmt.Printf("Failed to delete worktree [%v] %v: %v\n", wt.BranchName, wt.Path, err.Error())
 					} else {
-						fmt.Printf("Successfully deleted worktree [%v] %v", wt.BranchName, wt.Path)
+						fmt.Printf("Successfully deleted worktree [%v] %v\n", wt.BranchName, wt.Path)
 					}
 				}
 			}
