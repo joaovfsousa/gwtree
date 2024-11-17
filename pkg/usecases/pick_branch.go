@@ -17,7 +17,7 @@ func (uc *UseCases) PickBranch() (string, error) {
 		branch_names = append(branch_names, b.String())
 	}
 
-	selectedBranch, err := os_commands.FzfSelect(branch_names)
+	selectedBranch, err := os_commands.FzfSelect(branch_names, nil)
 	if err != nil {
 		return "", errors.New("Failed to select a branch")
 	}

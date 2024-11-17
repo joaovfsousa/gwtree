@@ -20,8 +20,6 @@ func (uc *UseCases) PickWorktree(branchName *string) (*domain.Worktree, error) {
 				return wt, nil
 			}
 		}
-
-		return nil, fmt.Errorf("Couldn't find worktree for branch %v", *branchName)
 	}
 
 	opts := []string{}
@@ -29,7 +27,7 @@ func (uc *UseCases) PickWorktree(branchName *string) (*domain.Worktree, error) {
 		opts = append(opts, fmt.Sprintf("%v [%v]", wt.Path, wt.BranchName))
 	}
 
-	selectedOpt, err := os_commands.FzfSelect(opts)
+	selectedOpt, err := os_commands.FzfSelect(opts, branchName)
 	if err != nil {
 		return nil, err
 	}
