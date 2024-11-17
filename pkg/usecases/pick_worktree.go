@@ -8,7 +8,7 @@ import (
 	"github.com/joaovfsousa/gwtree/pkg/domain"
 )
 
-func (uc *UseCases) PickWorktree(branchName *string) (*domain.Worktree, error) {
+func (uc *UseCases) PickWorktree(branchName *string, shouldSkipQueryOnNotFound bool) (*domain.Worktree, error) {
 	worktrees, err := uc.gc.Worktree.ListWorktrees()
 	if err != nil {
 		return nil, err
@@ -27,7 +27,13 @@ func (uc *UseCases) PickWorktree(branchName *string) (*domain.Worktree, error) {
 		opts = append(opts, fmt.Sprintf("%v [%v]", wt.Path, wt.BranchName))
 	}
 
-	selectedOpt, err := os_commands.FzfSelect(opts, branchName)
+	query := branchName
+
+	if shouldSkipQueryOnNotFound {
+		query = nil
+	}
+
+	selectedOpt, err := os_commands.FzfSelect(opts, query)
 	if err != nil {
 		return nil, err
 	}

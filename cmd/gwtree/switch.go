@@ -31,12 +31,17 @@ var switchCmd = &cobra.Command{
 		var err error
 		var wt *domain.Worktree
 
+		noQuery, err := cmd.Flags().GetBool(noQueryFlagName)
+		if err != nil {
+			noQuery = false
+		}
+
 		if len(args) == 1 {
 			branchName := args[0]
 
-			wt, err = uc.PickWorktree(&branchName)
+			wt, err = uc.PickWorktree(&branchName, noQuery)
 		} else {
-			wt, err = uc.PickWorktree(nil)
+			wt, err = uc.PickWorktree(nil, noQuery)
 		}
 
 		if err != nil {
