@@ -3,7 +3,7 @@ package usecases
 import (
 	"errors"
 
-	"github.com/joaovfsousa/gwtree/internal/os_commands"
+	"github.com/joaovfsousa/gwtree/pkg/os_commands"
 )
 
 func (uc *UseCases) PickBranch() (string, error) {

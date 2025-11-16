@@ -7,7 +7,7 @@ import (
 
 	"github.com/spf13/cobra"
 
-	"github.com/joaovfsousa/gwtree/internal/file_ops"
+	"github.com/joaovfsousa/gwtree/pkg/file_ops"
 	"github.com/joaovfsousa/gwtree/pkg/domain"
 )
 

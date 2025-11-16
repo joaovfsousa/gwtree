@@ -3,7 +3,7 @@ package git_cmd_worktree
 import (
 	"fmt"
 
-	"github.com/joaovfsousa/gwtree/internal/os_commands"
+	"github.com/joaovfsousa/gwtree/pkg/os_commands"
 )
 
 type WorktreeAddOptions struct {

@@ -1,7 +1,7 @@
 package git_cmd_worktree
 
 import (
-	"github.com/joaovfsousa/gwtree/internal/os_commands"
+	"github.com/joaovfsousa/gwtree/pkg/os_commands"
 )
 
 func (wc *WorktreeCommands) PruneWorktrees() error {

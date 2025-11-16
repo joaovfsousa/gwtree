@@ -3,7 +3,7 @@ package cmd
 import (
 	"github.com/spf13/cobra"
 
-	"github.com/joaovfsousa/gwtree/internal/logger"
+	"github.com/joaovfsousa/gwtree/pkg/logger"
 	"github.com/joaovfsousa/gwtree/pkg/git_commands"
 	"github.com/joaovfsousa/gwtree/pkg/usecases"
 )
